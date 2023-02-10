@@ -71,16 +71,44 @@ void drive_example() {
   // The second parameter is max speed the robot will drive at
   // The third parameter is a boolean (true or false) for enabling/disabling a slew at the start of drive motions
   // for slew, only enable it when the drive distance is greater then the slew distance + a few inches
-  chassis.set_drive_brake(pros::E_MOTOR_BRAKE_COAST);
-  chassis.set_drive_pid(72, DRIVE_SPEED, true);
+  chassis.set_drive_brake(pros::E_MOTOR_BRAKE_COAST); // first roller
+  chassis.set_drive_pid(-10, DRIVE_SPEED, true);
   chassis.wait_drive();
-  chassis.set_drive_pid(-72, DRIVE_SPEED, true);
+  setIntake(12000);
+  pros::delay(400);
+  setIntake(0);
+  chassis.set_drive_pid(15, DRIVE_SPEED, true);
   chassis.wait_drive();
-  chassis.set_drive_pid(72, DRIVE_SPEED, true);
+  chassis.set_turn_pid(135*1.006, TURN_SPEED);
   chassis.wait_drive();
-  chassis.set_drive_pid(-72, DRIVE_SPEED, true);
+  chassis.set_drive_pid(-90, DRIVE_SPEED, true);
+  setIntake(-12000);
   chassis.wait_drive();
-
+  chassis.set_turn_pid(90*1.006, TURN_SPEED);
+  chassis.wait_drive();
+  chassis.set_drive_pid(-30, DRIVE_SPEED, true);
+  chassis.wait_drive();
+  pros::delay(400);
+  chassis.set_drive_pid(40, DRIVE_SPEED, true);
+  chassis.wait_drive();
+  chassis.set_turn_pid(0*1.006, TURN_SPEED);
+  chassis.wait_drive();
+  chassis.set_drive_pid(165, DRIVE_SPEED, true);
+  chassis.wait_drive();
+  setFlywheelSpeedAuton8000(true);
+  pros::delay(500);
+  pnA.set_value(true);
+  pros::delay(75);
+  pnA.set_value(false);
+  pros::delay(75);
+  pnA.set_value(true);
+  pros::delay(75);
+  pnA.set_value(false);
+  pros::delay(75);
+  pnA.set_value(true);
+  pros::delay(75);
+  pnA.set_value(false);
+  setFlywheelSpeedAuton8000(false);
 }
 
 
@@ -93,7 +121,7 @@ void turn_example() {
   // The second parameter is max speed the robot will drive at
 
 
-  chassis.set_turn_pid(90*1.008, TURN_SPEED);
+  chassis.set_turn_pid(90*1.006, TURN_SPEED);
   chassis.wait_drive();
 
 }

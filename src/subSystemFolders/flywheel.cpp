@@ -14,7 +14,7 @@ void setFlywheel(double power){
 }
 
 double PP = 3;
-double II = 1.1; //there is slight oscilation, not much
+double II = 1.3; //there is slight oscilation, not much
 double DD = 1.2;	//dampening oscilation, also holds back the flywheel
 double errorr;
 double preverror;
@@ -211,7 +211,10 @@ int choice(){
 		jello = jello - 1000;
 		pros::delay(150);
 	}
-	if (jello == 8000) {
+	if (jello == 7000){
+		
+	}
+	else if (jello == 8000) {
 		setFlywheelSpeed8000();
 	}
 	else if (jello == 9000) {
@@ -229,6 +232,136 @@ int choice(){
 	return jello;
 }
 
+
+
+
+/*void setFlywheelSpeedAuton12000(bool twelve){
+	if (twelve){
+		setFlywheel(127);
+	}
+	else setFlywheel(0);
+}
+*/
+
+void setFlywheelSpeedAuton11000(bool eleven){
+	if (eleven){
+		//EMA filter
+		current_flywheel_speed = velocityfilter.filter((double) flywheel.get_actual_velocity());
+		if(current_flywheel_speed<0.95*540){
+			setFlywheel(127);
+		}
+		else{
+			//errors
+			errorr = 540 - current_flywheel_speed;
+
+
+			//Integral factor
+			estimatedpower_1 += errorr*II;
+
+			//derivative factor
+			dspeed = derivativefilter.filter(errorr - preverror);
+
+			//cap for power input
+			if (estimatedpower_1 >127){
+				estimatedpower_1 = 127;
+			}
+			 
+			if (std::signbit(preverror)!=std::signbit(errorr)){
+				estimatedpower_1 = 10000/factor;
+			}
+
+			setFlywheel(estimatedpower_1);
+
+			preverror = errorr;
+		}
+	}
+	else {
+		setFlywheel(0);
+		errorr = 0;
+		preverror = 0;
+		estimatedpower = 11000/factor;
+	}
+}
+
+void setFlywheelSpeedAuton10000(bool ten){
+	if (ten){
+		//EMA filter
+		current_flywheel_speed = velocityfilter.filter((double) flywheel.get_actual_velocity());
+		if(current_flywheel_speed<0.95*480){
+			setFlywheel(127);
+		}
+		else{
+			//error
+			errorr = 480 - current_flywheel_speed;
+
+
+			//Integral factor
+			estimatedpower_0 += errorr*II;
+
+			//derivative factor
+			dspeed = derivativefilter.filter(errorr - preverror);
+
+			//cap for power input
+			if (estimatedpower_0 >127){
+				estimatedpower_0 = 127;
+			}
+			 
+			if (std::signbit(preverror)!=std::signbit(errorr)){
+				estimatedpower_0 = 10000/factor;
+			}
+
+			setFlywheel(estimatedpower_0);
+
+			preverror = errorr;
+		}
+	}
+	else {
+		setFlywheel(0);
+		errorr = 0;
+		preverror = 0;
+		estimatedpower = 10000/factor;
+	}
+}
+
+void setFlywheelSpeedAuton8000(bool eight){
+	if (eight){
+		//EMA filter
+		current_flywheel_speed = velocityfilter.filter((double) flywheel.get_actual_velocity());
+		if(current_flywheel_speed<0.95*400){
+			setFlywheel(127);
+		}
+		else{
+			//error
+			errorr = 400 - current_flywheel_speed;
+
+
+			//Integral factor
+			estimatedpower_5 += errorr*II;
+
+			//derivative factor
+			dspeed = derivativefilter.filter(errorr - preverror);
+
+			//cap for power input
+			if (estimatedpower_5 >127){
+				estimatedpower_5 = 127;
+			}
+			 
+			if (std::signbit(preverror)!=std::signbit(errorr)){
+				estimatedpower_5 = 10000/factor;
+			}
+
+			setFlywheel(estimatedpower_5);
+
+			preverror = errorr;
+		}
+	}
+	else {
+		setFlywheel(0);
+		errorr = 0;
+		preverror = 0;
+		estimatedpower = 11000/factor;
+	}
+}
 //top triggers flywheel;
     //
     //
