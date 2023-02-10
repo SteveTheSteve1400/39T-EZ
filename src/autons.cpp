@@ -109,6 +109,12 @@ void drive_example() {
   pros::delay(75);
   pnA.set_value(false);
   setFlywheelSpeedAuton8000(false);
+  chassis.set_turn_pid(-90*1.006, TURN_SPEED);
+  chassis.wait_drive();
+  chassis.set_drive_pid(-100, DRIVE_SPEED, true);
+  chassis.wait_drive();
+  setIntake(0);
+
 }
 
 
