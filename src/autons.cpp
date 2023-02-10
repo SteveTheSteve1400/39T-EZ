@@ -89,7 +89,7 @@ void drive_example() {
   chassis.set_drive_pid(-30, DRIVE_SPEED, true);
   chassis.wait_drive();
   pros::delay(400);
-  chassis.set_drive_pid(40, DRIVE_SPEED, true);
+  chassis.set_drive_pid(30, DRIVE_SPEED, true);
   chassis.wait_drive();
   chassis.set_turn_pid(0*1.006, TURN_SPEED);
   chassis.wait_drive();
