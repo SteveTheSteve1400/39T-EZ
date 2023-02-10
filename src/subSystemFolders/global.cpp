@@ -18,3 +18,4 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
 ///various variable
 int selectSpeed = 95;
 int jello = 9000;
+bool eight = false;

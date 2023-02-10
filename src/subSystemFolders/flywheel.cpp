@@ -6,7 +6,7 @@
 #include "okapi/api.hpp"
 
 
-okapi::EmaFilter velocityfilter(0.8);
+okapi::EmaFilter velocityfilter(0.87);
 okapi::EmaFilter derivativefilter(0.87);
 //HELPER FUNCTION
 void setFlywheel(double power){
@@ -14,7 +14,7 @@ void setFlywheel(double power){
 }
 
 double PP = 3;
-double II = 1.3; //there is slight oscilation, not much
+double II = 0.7; //there is slight oscilation, not much
 double DD = 1.2;	//dampening oscilation, also holds back the flywheel
 double errorr;
 double preverror;
@@ -76,7 +76,7 @@ void setFlywheelSpeed8000(){
 	if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
 		//EMA filter
 		current_flywheel_speed = velocityfilter.filter((double) flywheel.get_actual_velocity());
-		if(current_flywheel_speed<0.95*400){
+		if(current_flywheel_speed<0.93*400){
 			setFlywheel(127);
 		}
 		else{
@@ -212,7 +212,7 @@ int choice(){
 		pros::delay(150);
 	}
 	if (jello == 7000){
-		
+		setFlywheel(74);
 	}
 	else if (jello == 8000) {
 		setFlywheelSpeed8000();
@@ -323,45 +323,48 @@ void setFlywheelSpeedAuton10000(bool ten){
 	}
 }
 
-void setFlywheelSpeedAuton8000(bool eight){
-	if (eight){
-		//EMA filter
-		current_flywheel_speed = velocityfilter.filter((double) flywheel.get_actual_velocity());
-		if(current_flywheel_speed<0.95*400){
-			setFlywheel(127);
-		}
-		else{
+void setFlywheelSpeedAuton8000(){
+	while(true){
+		while(eight){
+			//EMA filter
+			//current_flywheel_speed = velocityfilter.filter((double) flywheel.get_actual_velocity());
+			current_flywheel_speed  = flywheel.get_actual_velocity();
+			if(current_flywheel_speed<0.93*400){
+				setFlywheel(127);
+			}
+			else{
 			//error
-			errorr = 400 - current_flywheel_speed;
+				errorr = 400 - current_flywheel_speed;
 
 
-			//Integral factor
-			estimatedpower_5 += errorr*II;
+				//Integral factor
+				estimatedpower_5 += errorr*II;
 
-			//derivative factor
-			dspeed = derivativefilter.filter(errorr - preverror);
+				//derivative factor
+				dspeed = derivativefilter.filter(errorr - preverror);
 
 			//cap for power input
-			if (estimatedpower_5 >127){
-				estimatedpower_5 = 127;
-			}
-			 
-			if (std::signbit(preverror)!=std::signbit(errorr)){
-				estimatedpower_5 = 10000/factor;
-			}
+				if (estimatedpower_5 >127){
+					estimatedpower_5 = 127;
+				}
+				
+				if (std::signbit(preverror)!=std::signbit(errorr)){
+					estimatedpower_5 = 10000/factor;
+				}
 
-			setFlywheel(estimatedpower_5);
+				setFlywheel(estimatedpower_5);
 
-			preverror = errorr;
+				preverror = errorr;
+			}
+			pros::delay(50);
 		}
-	}
-	else {
 		setFlywheel(0);
 		errorr = 0;
 		preverror = 0;
-		estimatedpower = 11000/factor;
+		estimatedpower = 10000/factor;
 	}
-}
+	pros::delay(50);
+}			
 //top triggers flywheel;
     //
     //

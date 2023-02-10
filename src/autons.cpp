@@ -88,32 +88,36 @@ void drive_example() {
   chassis.wait_drive();
   chassis.set_drive_pid(-30, DRIVE_SPEED, true);
   chassis.wait_drive();
-  pros::delay(400);
-  chassis.set_drive_pid(30, DRIVE_SPEED, true);
+  chassis.set_drive_pid(10, DRIVE_SPEED, true);
   chassis.wait_drive();
   chassis.set_turn_pid(0*1.006, TURN_SPEED);
   chassis.wait_drive();
-  chassis.set_drive_pid(165, DRIVE_SPEED, true);
+  chassis.set_drive_pid(160, DRIVE_SPEED, true);
+  //setFlywheelSpeedAuton8000(true);
+  setFlywheel(86.01);
   chassis.wait_drive();
-  setFlywheelSpeedAuton8000(true);
-  pros::delay(500);
+  pros::delay(700);
   pnA.set_value(true);
-  pros::delay(75);
+  pros::delay(90);
+  setIntake(0);
   pnA.set_value(false);
-  pros::delay(75);
+  pros::delay(150);
   pnA.set_value(true);
-  pros::delay(75);
+  pros::delay(90);
   pnA.set_value(false);
-  pros::delay(75);
+  pros::delay(200);
   pnA.set_value(true);
-  pros::delay(75);
+  pros::delay(90);
   pnA.set_value(false);
-  setFlywheelSpeedAuton8000(false);
+  setFlywheel(0);
   chassis.set_turn_pid(-90*1.006, TURN_SPEED);
   chassis.wait_drive();
-  chassis.set_drive_pid(-100, DRIVE_SPEED, true);
+  setIntake(-12000);
+  chassis.set_drive_pid(-100, 70, true);
   chassis.wait_drive();
+  pros::delay(200);
   setIntake(0);
+  
 
 }
 
@@ -125,10 +129,7 @@ void drive_example() {
 void turn_example() {
   // The first parameter is target degrees
   // The second parameter is max speed the robot will drive at
-
-
-  chassis.set_turn_pid(90*1.006, TURN_SPEED);
-  chassis.wait_drive();
+  eight = true;
 
 }
 

@@ -54,6 +54,7 @@ Drive chassis (
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+  
   chassis.set_drive_brake(MOTOR_BRAKE_COAST);
   // Print our branding over your terminal :D
   ez::print_ez_template();
@@ -84,6 +85,7 @@ void initialize() {
   // Initialize chassis and auton selector
   chassis.initialize();
   ez::as::initialize();
+  pros::Task my_task(setFlywheelSpeedAuton8000);
 }
 
 

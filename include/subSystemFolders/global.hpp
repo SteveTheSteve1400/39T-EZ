@@ -17,3 +17,4 @@ extern pros::Controller controller;
 //various variable 
 extern int selectSpeed;
 extern int jello;
+extern bool eight;
