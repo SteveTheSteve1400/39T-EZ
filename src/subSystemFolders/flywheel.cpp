@@ -6,7 +6,7 @@
 #include "okapi/api.hpp"
 
 
-okapi::EmaFilter velocityfilter(0.87);
+okapi::EmaFilter velocityfilter(0.7);
 okapi::EmaFilter derivativefilter(0.87);
 //HELPER FUNCTION
 void setFlywheel(double power){
@@ -323,47 +323,44 @@ void setFlywheelSpeedAuton10000(bool ten){
 	}
 }
 
-void setFlywheelSpeedAuton8000(){
+double integralerror;
+void setFlywheelSpeedAuton(){
 	while(true){
 		while(eight){
 			//EMA filter
 			//current_flywheel_speed = velocityfilter.filter((double) flywheel.get_actual_velocity());
-			current_flywheel_speed  = flywheel.get_actual_velocity();
-			if(current_flywheel_speed<0.93*400){
+			current_flywheel_speed  = velocityfilter.filter((double) flywheel.get_actual_velocity());
+			if(current_flywheel_speed<0.93*designatedspeed){
 				setFlywheel(127);
 			}
 			else{
 			//error
-				errorr = 400 - current_flywheel_speed;
+				errorr = designatedspeed - current_flywheel_speed;
 
 
 				//Integral factor
-				estimatedpower_5 += errorr*II;
-
-				//derivative factor
-				dspeed = derivativefilter.filter(errorr - preverror);
+				integralerror += errorr*1;
 
 			//cap for power input
-				if (estimatedpower_5 >127){
-					estimatedpower_5 = 127;
+				if (powerdrawn+integralerror >127){
+					integralerror = 127 - powerdrawn;
 				}
 				
 				if (std::signbit(preverror)!=std::signbit(errorr)){
-					estimatedpower_5 = 10000/factor;
+					integralerror = 0;
 				}
 
-				setFlywheel(estimatedpower_5);
+				setFlywheel(powerdrawn+integralerror);
 
 				preverror = errorr;
 			}
-			pros::delay(50);
+			pros::delay(10);
 		}
-		setFlywheel(0);
+		setFlywheel(-35);
 		errorr = 0;
 		preverror = 0;
-		estimatedpower = 10000/factor;
+		pros::delay(10);
 	}
-	pros::delay(50);
 }			
 //top triggers flywheel;
     //

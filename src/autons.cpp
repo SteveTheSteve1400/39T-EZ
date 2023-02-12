@@ -74,7 +74,7 @@ void drive_example() {
   chassis.set_drive_brake(pros::E_MOTOR_BRAKE_COAST); // first roller
   chassis.set_drive_pid(-10, DRIVE_SPEED, true);
   chassis.wait_drive();
-  setIntake(12000);
+  setIntake(-9000);
   pros::delay(400);
   setIntake(0);
   chassis.set_drive_pid(15, DRIVE_SPEED, true);
@@ -82,26 +82,24 @@ void drive_example() {
   chassis.set_turn_pid(135*1.006, TURN_SPEED);
   chassis.wait_drive();
   chassis.set_drive_pid(-90, DRIVE_SPEED, true);
-  setIntake(-12000);
+  setIntake(-10000);
   chassis.wait_drive();
   chassis.set_turn_pid(90*1.006, TURN_SPEED);
   chassis.wait_drive();
-  chassis.set_drive_pid(-30, DRIVE_SPEED, true);
+  chassis.set_drive_pid(-20, DRIVE_SPEED, true);
   chassis.wait_drive();
+
+  eight = true;
+  designatedspeed = 400;
+  powerdrawn = 83;
+
   chassis.set_drive_pid(10, DRIVE_SPEED, true);
+  chassis.wait_drive();  
+
+  chassis.set_turn_pid(0*1.006, TURN_SPEED); //first volley, turn to goal
   chassis.wait_drive();
-  chassis.set_turn_pid(0*1.006, TURN_SPEED);
+  chassis.set_drive_pid(140, DRIVE_SPEED, true);
   chassis.wait_drive();
-  chassis.set_drive_pid(160, DRIVE_SPEED, true);
-  //setFlywheelSpeedAuton8000(true);
-  setFlywheel(86.01);
-  chassis.wait_drive();
-  pros::delay(700);
-  pnA.set_value(true);
-  pros::delay(90);
-  setIntake(0);
-  pnA.set_value(false);
-  pros::delay(150);
   pnA.set_value(true);
   pros::delay(90);
   pnA.set_value(false);
@@ -109,15 +107,71 @@ void drive_example() {
   pnA.set_value(true);
   pros::delay(90);
   pnA.set_value(false);
-  setFlywheel(0);
-  chassis.set_turn_pid(-90*1.006, TURN_SPEED);
+  pros::delay(250);
+  pnA.set_value(true);
+  pros::delay(90);
+  pnA.set_value(false);
+
+  eight = false;
+
+  chassis.set_drive_pid(-140, DRIVE_SPEED, true);
   chassis.wait_drive();
-  setIntake(-12000);
-  chassis.set_drive_pid(-100, 70, true);
+
+
+  chassis.set_turn_pid(-135*1.006, TURN_SPEED); //intake second volley
   chassis.wait_drive();
-  pros::delay(200);
-  setIntake(0);
+  chassis.set_drive_pid(-200, DRIVE_SPEED, true);
+  chassis.wait_drive();
+
+  eight = true;
+  designatedspeed = 450;
+  powerdrawn = 95;
+
+  chassis.set_turn_pid(-25*1.006, TURN_SPEED); //shoot second volley
+  chassis.wait_drive();
   
+  pros::delay(1000);
+
+  pnA.set_value(true);
+  pros::delay(90);
+  pnA.set_value(false);
+  pros::delay(200);
+  pnA.set_value(true);
+  pros::delay(90);
+  pnA.set_value(false);
+  pros::delay(250);
+  pnA.set_value(true);
+  pros::delay(90);
+  eight = false;
+  pnA.set_value(false);
+
+  chassis.set_turn_pid(-135*1.006, TURN_SPEED); //intake third volley part
+  chassis.wait_drive();
+  setIntake(5000);
+  chassis.set_drive_pid(-90, DRIVE_SPEED, true); //knock over stack of discs first
+  chassis.wait_drive();
+  setIntake(-12000); //intake third volley
+  chassis.set_drive_pid(-100, 60, true);
+  chassis.wait_drive();
+
+
+  chassis.set_turn_pid(-90*1.006, TURN_SPEED); //intake third volley part
+  chassis.wait_drive();
+  eight = true;
+  chassis.set_drive_pid(150, DRIVE_SPEED, true); //go to line to shoot
+  chassis.wait_drive();
+  pnA.set_value(true); //shooting third volley
+  pros::delay(90);
+  pnA.set_value(false);
+  pros::delay(200);
+  pnA.set_value(true);
+  pros::delay(90);
+  pnA.set_value(false);
+  pros::delay(250);
+  pnA.set_value(true);
+  pros::delay(90);
+  eight = false;
+  pnA.set_value(false);
 
 }
 

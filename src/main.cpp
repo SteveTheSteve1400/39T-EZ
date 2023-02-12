@@ -85,7 +85,7 @@ void initialize() {
   // Initialize chassis and auton selector
   chassis.initialize();
   ez::as::initialize();
-  pros::Task my_task(setFlywheelSpeedAuton8000);
+
 }
 
 
@@ -128,6 +128,7 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
+  pros::Task my_task(setFlywheelSpeedAuton);
   chassis.reset_pid_targets(); // Resets PID targets to 0
   chassis.reset_gyro(); // Reset gyro position to 0
   chassis.reset_drive_sensor(); // Reset drive sensors to 0
@@ -153,7 +154,6 @@ void autonomous() {
  */
 void opcontrol() {
   // This is preference to what you like to drive on.
- 
   bool signs = false;
   while (true) {
     chassis.set_drive_brake(MOTOR_BRAKE_COAST);
