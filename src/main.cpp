@@ -162,6 +162,7 @@ void opcontrol() {
     // chassis.arcade_flipped(ez::SPLIT); // Flipped split arcade
     // chassis.arcade_flipped(ez::SINGLE); // Flipped single arcade
     choice();
+    
     setLauncher();
     if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_Y) and signs == true){
 			signs = false;
