@@ -81,8 +81,8 @@ void drive_example() {
   chassis.wait_drive();
   chassis.set_turn_pid(135*1.006, TURN_SPEED);
   chassis.wait_drive();
-  chassis.set_drive_pid(-90, DRIVE_SPEED, true);
-  setIntake(-10000);
+  chassis.set_drive_pid(-85, DRIVE_SPEED, true);
+  setIntake(-9000);
   chassis.wait_drive();
   chassis.set_turn_pid(90*1.006, TURN_SPEED);
   chassis.wait_drive();
@@ -98,7 +98,7 @@ void drive_example() {
 
   chassis.set_turn_pid(0*1.006, TURN_SPEED); //first volley, turn to goal
   chassis.wait_drive();
-  chassis.set_drive_pid(140, DRIVE_SPEED, true);
+  chassis.set_drive_pid(145, DRIVE_SPEED, true);
   chassis.wait_drive();
   pnA.set_value(true);
   pros::delay(90);
@@ -114,20 +114,20 @@ void drive_example() {
 
   eight = false;
 
-  chassis.set_drive_pid(-140, DRIVE_SPEED, true);
+  chassis.set_drive_pid(-138, DRIVE_SPEED, true);
   chassis.wait_drive();
 
 
   chassis.set_turn_pid(-135*1.006, TURN_SPEED); //intake second volley
   chassis.wait_drive();
-  chassis.set_drive_pid(-200, DRIVE_SPEED, true);
+  chassis.set_drive_pid(-200, 100, true);
   chassis.wait_drive();
 
   eight = true;
-  designatedspeed = 450;
-  powerdrawn = 95;
+  designatedspeed = 470;
+  powerdrawn = 97;
 
-  chassis.set_turn_pid(-25*1.006, TURN_SPEED); //shoot second volley
+  chassis.set_turn_pid(-55*1.006, TURN_SPEED); //shoot second volley
   chassis.wait_drive();
   
   pros::delay(1000);
@@ -147,11 +147,11 @@ void drive_example() {
 
   chassis.set_turn_pid(-135*1.006, TURN_SPEED); //intake third volley part
   chassis.wait_drive();
-  setIntake(5000);
-  chassis.set_drive_pid(-90, DRIVE_SPEED, true); //knock over stack of discs first
+  setIntake(-5000);
+  chassis.set_drive_pid(-87, 90, true); //knock over stack of discs first
+  setIntake(-12000);
   chassis.wait_drive();
-  setIntake(-12000); //intake third volley
-  chassis.set_drive_pid(-100, 60, true);
+  chassis.set_drive_pid(-105, 40, true);
   chassis.wait_drive();
 
 
