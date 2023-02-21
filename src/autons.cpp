@@ -71,7 +71,7 @@ void drive_example() {
   // The second parameter is max speed the robot will drive at
   // The third parameter is a boolean (true or false) for enabling/disabling a slew at the start of drive motions
   // for slew, only enable it when the drive distance is greater then the slew distance + a few inches
-  chassis.set_drive_brake(pros::E_MOTOR_BRAKE_COAST); // first roller
+  chassis.set_drive_brake(pros::E_MOTOR_BRAKE_BRAKE); // first roller
   chassis.set_drive_pid(-10, DRIVE_SPEED, true);
   chassis.wait_drive();
   setIntake(-9000);
@@ -114,7 +114,7 @@ void drive_example() {
 
   eight = false;
 
-  chassis.set_drive_pid(-135, 100, true);
+  chassis.set_drive_pid(-132, 100, true);
   chassis.wait_drive();
 
 
@@ -145,20 +145,18 @@ void drive_example() {
   eight = false;
   pnA.set_value(false);
 
-  chassis.set_turn_pid(-135*1.006, TURN_SPEED); //intake third volley part
+  chassis.set_turn_pid(-140*1.006, TURN_SPEED); //intake third volley part
   chassis.wait_drive();
-  setIntake(-12000);
   chassis.set_drive_pid(-87, 127, true); //knock over stack of discs first
   chassis.wait_drive();
-  chassis.set_drive_pid(-100, 40, true);
-  chassis.wait_drive();
-  chassis.set_drive_pid(10, 50, true);
+
+  chassis.set_drive_pid(-120, 40, true); //intake
   chassis.wait_drive();
 
-  chassis.set_turn_pid(-90*1.006, TURN_SPEED); //intake third volley part
+  chassis.set_turn_pid(-90*1.006, TURN_SPEED); //turn
   chassis.wait_drive();
   eight = true;
-  chassis.set_drive_pid(132, DRIVE_SPEED, true); //go to line to shoot
+  chassis.set_drive_pid(136, DRIVE_SPEED, true); //go to line to shoot
   chassis.wait_drive();
 
 
@@ -184,20 +182,24 @@ void drive_example() {
   pros::delay(90);
   eight = false;
   pnA.set_value(false);
-  setIntake(0);
+
+
   chassis.set_turn_pid(-65*1.006, TURN_SPEED); //turn back to roller
   chassis.wait_drive();
-  setIntake(0);
-  chassis.set_drive_pid(-200, 80, true); //knock third
+  chassis.set_drive_pid(-160, 127, true); //knock third
   chassis.wait_drive();
-  setIntake(-12000);
-  chassis.set_drive_pid(-120, 50, true); //intake 3rd
+  chassis.set_drive_pid(-70, 40, true); //intake 3rd
   chassis.wait_drive();
-    chassis.set_drive_pid(70, 50, true); //intake 3rd
-  chassis.wait_drive();
-  chassis.set_turn_pid(-90*1.006, TURN_SPEED); //turn back to roller
+  chassis.set_turn_pid(-105*1.006, TURN_SPEED); //turn back to roller part 1
   chassis.wait_drive();
   chassis.set_drive_pid(-30, DRIVE_SPEED, true);
+  chassis.wait_drive();
+
+  chassis.set_turn_pid(-90*1.006, TURN_SPEED); //turn back to roller part 2
+  chassis.wait_drive();
+  chassis.set_drive_pid(-30, DRIVE_SPEED, true);
+  chassis.wait_drive();
+
 }
 
 

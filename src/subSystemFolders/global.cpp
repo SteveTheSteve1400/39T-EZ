@@ -11,6 +11,7 @@ pros::Motor intake(11,pros::E_MOTOR_GEARSET_06, false);
 //pnuematics 
 pros::ADIDigitalOut pnA('A');
 pros::ADIDigitalOut pnC('C');
+pros::ADIDigitalOut pnE('E');
 
 //controller
 pros::Controller controller(pros::E_CONTROLLER_MASTER);

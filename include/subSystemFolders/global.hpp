@@ -10,6 +10,7 @@ extern pros::Motor intake;
 //pneumatics
 extern pros::ADIDigitalOut pnA;
 extern pros::ADIDigitalOut pnC;
+extern pros::ADIDigitalOut pnE;
 
 //controller
 extern pros::Controller controller;
