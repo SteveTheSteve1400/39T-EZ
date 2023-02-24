@@ -4,9 +4,9 @@
 
 extern Drive chassis;
 
-void drive_example();
-void turn_example();
-void drive_and_turn();
+void skillsFunc();
+void matchClose();
+void matchFar();
 void wait_until_change_speed();
 void swing_example();
 void combining_movements();

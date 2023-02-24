@@ -73,9 +73,9 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.add_autons({
-    Auton("skasdfasdfls", drive_example),
-    Auton("Example Turn\n\nTurn 3 times.", turn_example),
-    Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
+    Auton("Close Auton", matchClose),
+    Auton("Far Auton.", matchFar),
+    Auton("Skills Auton. ", skillsFunc),
     Auton("Drive and Turn\n\nSlow down during drive.", wait_until_change_speed),
     Auton("Swing Example\n\nSwing, drive, swing.", swing_example),
     Auton("Combine all 3 movements", combining_movements),
@@ -169,11 +169,16 @@ void opcontrol() {
 			pnC.set_value(signs);
 			pros::delay(200);
 		}
-		else if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_Y) and signs == false){
+    else if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_Y) and signs == false){
 			signs = true;
 			pnC.set_value(signs);
 			pros::delay(200);
 		}
+    if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_X)){
+      pnH.set_value(true);
+      pros::delay(200);
+      pnH.set_value(false);
+    }
     // Put more user control code here!
     // . . .
 

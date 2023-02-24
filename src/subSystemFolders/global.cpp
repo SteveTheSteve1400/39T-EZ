@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/adi.hpp"
 #include "pros/imu.hpp"
 #include "pros/misc.h"
 #include "pros/misc.hpp"
@@ -12,7 +13,7 @@ pros::Motor intake(11,pros::E_MOTOR_GEARSET_06, false);
 pros::ADIDigitalOut pnA('A');
 pros::ADIDigitalOut pnC('C');
 pros::ADIDigitalOut pnE('E');
-
+pros::ADIDigitalOut pnH('H');
 //controller
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
 

@@ -66,7 +66,7 @@ void modified_exit_condition() {
 ///
 // Drive Example
 ///
-void drive_example() {
+void skillsFunc() {
   // The first parameter is target inches
   // The second parameter is max speed the robot will drive at
   // The third parameter is a boolean (true or false) for enabling/disabling a slew at the start of drive motions
@@ -207,10 +207,16 @@ void drive_example() {
 ///
 // Turn Example
 ///
-void turn_example() {
-  // The first parameter is target degrees
-  // The second parameter is max speed the robot will drive at
-  eight = true;
+void matchClose() {
+  chassis.set_drive_brake(pros::E_MOTOR_BRAKE_BRAKE); // first roller
+  chassis.set_drive_pid(-10, DRIVE_SPEED, true);
+  chassis.wait_drive();
+  setIntake(-9000);
+  pros::delay(200);
+  chassis.set_drive_pid(10, DRIVE_SPEED, true);
+  chassis.wait_drive();
+  chassis.set_turn_pid(-225, TURN_SPEED);
+  chassis.wait_drive();
 
 }
 
@@ -219,7 +225,7 @@ void turn_example() {
 ///
 // Combining Turn + Drive
 ///
-void drive_and_turn() {
+void matchFar() {
   chassis.set_drive_pid(24, DRIVE_SPEED, true);
   chassis.wait_drive();
 
